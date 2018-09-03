@@ -46,7 +46,8 @@
 
     list?
     string-append
-    )
+    number->string
+    symbol->string)
    (:export
     pp)
    (:export
@@ -117,7 +118,14 @@
       (list? alexandria:proper-list-p)
 
       (string-append string-append)
-      ))))
+      (number->string number->string)
+      (symbol->string (lambda (x)
+			(copy-seq (string x))))))))
+
+(defun number->string (number &optional radix)
+  ;;radix default to 10, but for some result explicitly
+  ;;providing 10 causes a decimal point to appear.
+  (write-to-string number :radix radix))
 
 (defun string-append (&rest args)
   (let ((length (reduce #'+ (mapcar #'length args))))
