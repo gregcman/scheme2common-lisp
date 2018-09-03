@@ -39,7 +39,10 @@
     string-ref
     string-set!
     symbol->string
-    vector-length)
+    vector-length
+    
+    number?
+    string?)
    (:export
     pp)
    (:export
@@ -103,6 +106,9 @@
       (vector-length array-total-size)
       
       ;;(write prin1)
+
+      (number? numberp)
+      (string? stringp)
       ))))
 
 (defmacro alias2 (scheme-name cl-name)
