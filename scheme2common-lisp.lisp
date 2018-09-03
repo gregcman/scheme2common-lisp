@@ -38,7 +38,6 @@
     vector-set!
     string-ref
     string-set!
-    symbol->string
     vector-length
     
     number?
@@ -129,7 +128,6 @@
       (vector-set! (lambda (array index value) (setf (aref array index) value)))
       (string-ref aref)
       (string-set! vector-set!)
-      (symbol->string intern)
       (vector-length array-total-size)
       
       ;;(write prin1)
