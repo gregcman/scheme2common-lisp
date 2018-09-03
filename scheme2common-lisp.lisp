@@ -47,7 +47,12 @@
     list?
     string-append
     number->string
-    symbol->string)
+    symbol->string
+    
+    char->integer
+    integer->char
+    list->string
+    string-length)
    (:export
     pp)
    (:export
@@ -62,6 +67,23 @@
     call/cc
     open-input-file
     close-input-port)))
+
+(defun number->string (number &optional radix)
+  ;;radix default to 10, but for some result explicitly
+  ;;providing 10 causes a decimal point to appear.
+  (write-to-string number :radix radix))
+
+(defun string-append (&rest args)
+  (let ((length (reduce #'+ (mapcar #'length args))))
+    (let ((new 
+	   (make-array length :element-type 'character))
+	  (count 0))
+      (dolist (item args)
+	(dotimes (index (length item))
+	  (setf (aref new count)
+		(aref item index))
+	  (incf count)))
+      new)))
 
 (defmacro alias0 (scheme-name cl-name)
   `(eval-always
@@ -117,27 +139,18 @@
 
       (list? alexandria:proper-list-p)
 
-      (string-append string-append)
-      (number->string number->string)
+      ;;(string-append string-append)
+      ;;(number->string number->string)
       (symbol->string (lambda (x)
-			(copy-seq (string x))))))))
+			(copy-seq (string x))))
+      (char->integer char-code)
+      (integer->char code-char)
 
-(defun number->string (number &optional radix)
-  ;;radix default to 10, but for some result explicitly
-  ;;providing 10 causes a decimal point to appear.
-  (write-to-string number :radix radix))
+      (list->string (lambda (x)
+		     (coerce x 'string)))
+      (string-length (lambda (x)
+		       (array-total-size x)))))))
 
-(defun string-append (&rest args)
-  (let ((length (reduce #'+ (mapcar #'length args))))
-    (let ((new 
-	   (make-array length :element-type 'character))
-	  (count 0))
-      (dolist (item args)
-	(dotimes (index (length item))
-	  (setf (aref new count)
-		(aref item index))
-	  (incf count)))
-      new)))
 
 (defmacro alias2 (scheme-name cl-name)
   `(defmacro ,scheme-name (&rest rest)
