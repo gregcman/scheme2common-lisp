@@ -42,7 +42,11 @@
     vector-length
     
     number?
-    string?)
+    string?
+
+    list?
+    string-append
+    )
    (:export
     pp)
    (:export
@@ -109,7 +113,23 @@
 
       (number? numberp)
       (string? stringp)
+
+      (list? alexandria:proper-list-p)
+
+      (string-append string-append)
       ))))
+
+(defun string-append (&rest args)
+  (let ((length (reduce #'+ (mapcar #'length args))))
+    (let ((new 
+	   (make-array length :element-type 'character))
+	  (count 0))
+      (dolist (item args)
+	(dotimes (index (length item))
+	  (setf (aref new count)
+		(aref item index))
+	  (incf count)))
+      new)))
 
 (defmacro alias2 (scheme-name cl-name)
   `(defmacro ,scheme-name (&rest rest)
