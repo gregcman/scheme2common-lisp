@@ -140,7 +140,7 @@
       ;;(string-append string-append)
       ;;(number->string number->string)
       (symbol->string (lambda (x)
-			(copy-seq (string x))))
+			(string-downcase (string x)))) ;;;;FIXME -> how to convert common lisp symbols to scheme strings?
       (char->integer char-code)
       (integer->char code-char)
 
