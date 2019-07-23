@@ -1,9 +1,9 @@
-Do you ever find yourself wanting to use scheme programs in Common Lisp? 
+# Do you find yourself wanting to use scheme programs in Common Lisp? 
 
-scheme2common-lisp can help ease the nightmare of porting scheme programs to Common Lisp. 
-scheme2common-lisp contains scheme functions implemented in Common Lisp, to make copy-pasting the scheme programs into Common Lisp as smooth as possible.
+```scheme2common-lisp``` can help ease the nightmare of porting scheme programs to Common Lisp. 
+```scheme2common-lisp``` contains scheme functions implemented in Common Lisp, to make copy-pasting the scheme programs into Common Lisp as smooth as possible.
 
-# How To
+## How To
 
 1. You want to use scheme code in Common Lisp
 2. Copy and paste the scheme code you want to use into your common lisp package
@@ -11,7 +11,7 @@ scheme2common-lisp contains scheme functions implemented in Common Lisp, to make
 4. Smooth out any inconsistencies....
 5. Profit!
 
-# Technical details 
+## Technical details 
 
 Some Scheme functions are Common Lisp functions under a different name. 
 Some Scheme primitives require more complex Common Lisp Implementations, like ```named-let``` and ```letrec```.
